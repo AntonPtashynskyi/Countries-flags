@@ -10,6 +10,7 @@ import {
 
 function Header() {
   const [theme, setTheme] = useState("light");
+  const isDark = theme === "dark";
   const toggleTheme = () => {
     setTheme((theme) => (theme === "light" ? "dark" : "light"));
   };
@@ -23,7 +24,12 @@ function Header() {
         <StyledWrapper>
           <StyledTitle>Where is the world?</StyledTitle>
           <ThemeSwitcher onClick={toggleTheme}>
-            <IoMoonSharp /> Light Theme
+            {isDark ? (
+              <IoMoonSharp size={"14px"} />
+            ) : (
+              <IoMoonOutline size={"14px"} />
+            )}
+            {isDark ? "Dark" : "Light"} Theme
           </ThemeSwitcher>
         </StyledWrapper>
       </StyledContainer>
