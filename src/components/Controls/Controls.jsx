@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Search from "../Search/Search";
 import { CustomSelect } from "../Select/Select";
 import { WrapperControls } from "./StyledControls";
@@ -11,9 +11,15 @@ const options = [
   { value: "Oceania", label: "Oceania" },
 ];
 
-function Controls() {
+function Controls({ onSearch }) {
   const [search, setSearch] = useState("");
   const [region, setRegion] = useState("");
+
+  useEffect(() => {
+    const regionValue = region?.value || "";
+
+    onSearch(search, regionValue);
+  }, [onSearch, region?.value, search]);
 
   return (
     <WrapperControls>
