@@ -1,51 +1,30 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Controls from "./components/Controls/Controls";
-import Header from "./components/Header/Header";
+import { useState } from "react";
+
+import { Route, Routes } from "react-router-dom";
 import { Main } from "./components/Main/Main";
-import { ALL_COUNTRIES } from "./config";
-import List from "./components/List/List";
-import { Card } from "./Card/Card";
+import Header from "./components/Header/Header";
+
+import HomePage from "./pages/HomePage";
+import DetailsPage from "./pages/DetailsPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   const [countries, setCountries] = useState([]);
-
-  console.log(countries);
-
-  useEffect(() => {
-    axios.get(ALL_COUNTRIES).then(({ data }) => setCountries(data));
-  }, []);
 
   return (
     <>
       <Header />
       <Main>
-        <Controls />
-        <List>
-          {countries &&
-            countries.map((country) => {
-              const countryInfo = {
-                image: country.flags.png,
-                countryName: country.name,
-                info: [
-                  {
-                    title: "Population",
-                    description: country.population.toLocaleString(),
-                  },
-                  {
-                    title: "Region",
-                    description: country.region,
-                  },
-                  {
-                    title: "Capital",
-                    description: country.capital,
-                  },
-                ],
-              };
-
-              return <Card key={country.name} {...countryInfo} />;
-            })}
-        </List>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <HomePage countries={countries} setCountries={setCountries} />
+            }
+          />
+          <Route path="/country/:name" element={<DetailsPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </Main>
     </>
   );
