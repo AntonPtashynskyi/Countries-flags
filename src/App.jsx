@@ -5,7 +5,7 @@ import { Main } from "./components/Main/Main";
 import Header from "./components/Header/Header";
 
 import HomePage from "./pages/HomePage";
-import DetailsPage from "./pages/DetailsPage";
+import DetailsPage from "./pages/DetailsPage/DetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {

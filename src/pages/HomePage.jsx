@@ -9,9 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { ALL_COUNTRIES } from "../config";
 
 const HomePage = ({ countries, setCountries }) => {
-  const [filteredCountries, setFilteredCountries] = useState(countries);
-
   const navigate = useNavigate();
+  const [filteredCountries, setFilteredCountries] = useState(countries);
 
   const handleSearch = (search, region) => {
     let data = [...countries];
@@ -34,6 +33,11 @@ const HomePage = ({ countries, setCountries }) => {
       axios.get(ALL_COUNTRIES).then(({ data }) => setCountries(data));
     }
   }, [countries.length, setCountries]);
+
+  useEffect(() => {
+    handleSearch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [countries]);
 
   return (
     <>
